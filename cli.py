@@ -101,6 +101,17 @@ cli.add_argument(
     default=""
 )
 
+# =====================================
+# Arg: Config Path
+# =====================================
+
+cli.add_argument(
+    "--config_path",
+    type=str,
+    help="The path to the configuration file (optional).",
+    default=None
+)
+
 # =============================================================================
 # Main
 # =============================================================================
@@ -118,6 +129,7 @@ async def main(args):
             query_domains=query_domains,
             report_type="research_report",
             report_source="web_search",
+            config_path=args.config_path,
         )
 
         report = await detailed_report.run()
@@ -146,7 +158,8 @@ async def main(args):
             query_domains=query_domains,
             report_type=args.report_type,
             tone=tone_map[args.tone],
-            encoding=args.encoding
+            encoding=args.encoding,
+            config_path=args.config_path,
         )
 
         await researcher.conduct_research()
